@@ -6,3 +6,4 @@ const (
 )
 
 var LastID int64
+var LastPage string

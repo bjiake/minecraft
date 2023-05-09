@@ -22,7 +22,7 @@ func GetLastID() {
 	err = collection.FindOne(context.Background(), bson.M{}, findOptions).Decode(&result)
 	if err != nil {
 		log.Printf("Cannot find lastID from dataBase")
-		config.LastID = int64(0)
+		config.LastID = 0
 		return
 	}
 

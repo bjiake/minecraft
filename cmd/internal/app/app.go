@@ -5,11 +5,14 @@ import (
 	"log"
 	"minecraft/cmd/internal/database/requestsToMongoDB"
 	"minecraft/cmd/internal/models"
+	"minecraft/cmd/internal/services"
 	"minecraft/cmd/internal/transport"
 )
 
 func Start() {
 	requestsToMongoDB.GetLastID()
+	services.GetLastPageNumber()
+	//modeList := services.GetAllPages()
 	//modeList := services.GetPages("1,6,7,8,9")
 	//convertModListJson(modeList)
 	//requestsToMongoDB.InsertMany(modeList)
