@@ -13,9 +13,10 @@ func Transport() {
 	router.GET("/mods", getMods)
 	router.GET("/mods/:page", getModsByPage)
 
-	router.Run("localhost:8000")
+	router.Run("25.10.209.53:8000")
 }
 
+// * &
 func getMods(contex *gin.Context) {
 	contex.IndentedJSON(http.StatusOK, requestsToMongoDB.FindAll())
 }
