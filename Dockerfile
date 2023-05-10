@@ -13,4 +13,4 @@ RUN go build -o main.app cmd/app/main.go
 
 EXPOSE 8080
 
-ENTRYPOINT ["./main.app"]
+ENTRYPOINT [".cmd/app/main.app"]
