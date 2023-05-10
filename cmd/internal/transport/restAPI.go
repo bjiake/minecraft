@@ -16,7 +16,7 @@ func Transport() {
 	//router.GET("/mods", getMods)
 	router.GET("/mods", getModsByQuery)
 
-	router.Run("25.10.209.53:8000")
+	router.Run("localhost:8088")
 }
 
 // * &
