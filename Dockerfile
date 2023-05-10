@@ -2,21 +2,15 @@ FROM golang:1.20.3-alpine
 
 WORKDIR /app
 
-COPY go.mod go.sum ./
+COPY go.mod .
+COPY go.sum .
 
 RUN go mod download
 
-COPY cmd/app/ .
-
-COPY --from=builder /app/ ./
 COPY . .
-RUN go build -o main ./cmd/app
 
-RUN apk --no-cache add ca-certificates
+RUN go build -o main.app cmd/app/main.go
 
-COPY --from=builder /app/ ./
-COPY --from=1 /app/main ./
+EXPOSE 8080
 
-ENV PORT=8080
-EXPOSE $PORT
-CMD ["./main"]
+ENTRYPOINT ["./main.app"]
