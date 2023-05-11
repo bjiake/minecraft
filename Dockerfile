@@ -1,6 +1,7 @@
 FROM golang:1.20.3-alpine
 
 WORKDIR /app
+#RUN mkdir /app
 
 COPY go.mod .
 COPY go.sum .
@@ -13,4 +14,4 @@ RUN go build -o main cmd/app/main.go
 
 EXPOSE 8080
 
-ENTRYPOINT ["/app/cmd/app/main"]
+ENTRYPOINT ["/app/main"]
