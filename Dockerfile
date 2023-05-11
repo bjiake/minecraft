@@ -8,4 +8,4 @@ COPY ./ ./
 RUN go mod download
 RUN go build -o minecraft ./cmd/app/main.go
 
-CMD["cmd/app/main.go"]
+CMD["/cmd/app/main.go"]
