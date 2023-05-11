@@ -1,13 +1,16 @@
-FROM golang:1.20.3
+FROM golang:1.20.3-alpine
 
 WORKDIR /app
 
-COPY go.mod go.sum ./
+COPY go.mod .
+COPY go.sum .
 
 RUN go mod download
 
 COPY . .
 
-RUN go build -mod=readonly -v -o /go/bin/app ./cmd/app
+RUN go build -o main.app cmd/app/main.go
 
-CMD ["/go/bin/app"]
+EXPOSE 8080
+
+ENTRYPOINT [".cmd/app/main.app"]
