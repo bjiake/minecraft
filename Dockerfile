@@ -1,13 +1,13 @@
-FROM golang:latest
+FROM golang:1.20.3
 
 WORKDIR /app
 
-COPY . .
+COPY go.mod go.sum ./
 
 RUN go mod download
 
-RUN go build -o app .
+COPY . .
 
-EXPOSE 8080
+RUN go build -mod=readonly -v -o /go/bin/app ./cmd/app
 
-CMD ["./app"]
+CMD ["/go/bin/app"]
