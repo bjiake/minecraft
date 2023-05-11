@@ -36,9 +36,6 @@
                 </option>
               </VolumeState>
             </option>
-            <option name="goPath" value="/go" />
-            <option name="goRoot" value="/usr/local/go/bin/go" />
-            <option name="goVersion" value="go1.20.3 linux/amd64" />
             <option name="projectSourcesVolume">
               <VolumeState>
                 <option name="targetSpecificBits">

@@ -4,11 +4,10 @@ import (
 	"github.com/gin-gonic/gin"
 	"log"
 	"minecraft/cmd/internal/config"
-	"minecraft/cmd/internal/database/requestsToMongoDB"
 	"minecraft/cmd/internal/models"
+	"minecraft/cmd/internal/services"
 	"net/http"
 	"strconv"
-	"strings"
 )
 
 func Transport() {
@@ -19,15 +18,10 @@ func Transport() {
 	router.Run("localhost:8088")
 }
 
-// * &
-func getMods(contex *gin.Context) {
-	contex.IndentedJSON(http.StatusOK, requestsToMongoDB.FindAll())
-}
-
 func getModsByQuery(context *gin.Context) {
 	pageStr := context.Query("page")
-	parts := strings.Split(pageStr, "=")
-	_ = parts
+	//parts := strings.Split(pageStr, "=")
+	//_ = parts
 
 	page, err := strconv.Atoi(pageStr) // конвертируем строку в число
 	if err != nil {
@@ -37,8 +31,9 @@ func getModsByQuery(context *gin.Context) {
 	}
 
 	var result models.RequestAPI
-	modList := requestsToMongoDB.FindByPage(page)
-	if modList == nil {
+	newModList := services.GetPage(pageStr)
+	//modList := requestsToMongoDB.FindByPage(page)
+	if newModList == nil {
 		context.IndentedJSON(http.StatusBadRequest, gin.H{"error": "invalid page number"})
 		return
 	}
@@ -60,7 +55,7 @@ func getModsByQuery(context *gin.Context) {
 		nextPageStr = strconv.Itoa(nextPage)
 	}
 
-	result = models.RequestAPI{CurrentPage: page, Data: modList, PrevPage: prevPageStr, NextPage: nextPageStr, TotalPage: totalPage}
+	result = models.RequestAPI{CurrentPage: page, Data: newModList, PrevPage: prevPageStr, NextPage: nextPageStr, TotalPage: totalPage}
 
 	context.IndentedJSON(http.StatusOK, result)
 	return
