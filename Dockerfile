@@ -1,15 +1,13 @@
-FROM golang:1.20.3 AS builder
+FROM golang:latest
 
 WORKDIR /app
 
-COPY go.mod ./
-COPY go.sum ./
+COPY . .
 
 RUN go mod download
 
-COPY ./ ./
+RUN go build -o app .
 
-RUN go build -o minecraft ./cmd/app/main.go
+EXPOSE 8080
 
-
-CMD [ "/app/cmd/app/main.go" ]
+CMD ["./app"]
