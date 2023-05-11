@@ -1,5 +1,7 @@
 FROM golang:1.20.3-alpine
 
+ENV HOST=0.0.0.0
+
 WORKDIR /app
 #RUN mkdir /app
 
