@@ -12,4 +12,4 @@ COPY ./ ./
 RUN go build -o minecraft ./cmd/app/main.go
 
 
-CMD [ "./cmd/app/main.go" ]
+CMD [ "/app/cmd/app/main.go" ]
