@@ -15,7 +15,7 @@ func Transport() {
 	//router.GET("/mods", getMods)
 	router.GET("/mods", getModsByQuery)
 
-	router.Run("localhost:8088")
+	router.Run("localhost:8080")
 }
 
 func getModsByQuery(context *gin.Context) {
