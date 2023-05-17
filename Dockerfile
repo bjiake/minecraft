@@ -8,4 +8,6 @@ COPY ./ ./
 RUN go mod download
 RUN go build -o backend ./cmd/app/main.go
 
+EXPOSE 8080
+
 CMD ["./backend"]
