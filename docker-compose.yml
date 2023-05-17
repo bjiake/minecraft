@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  backend:
+    build: ./
+    command:
+      - ./backend
+    environment:
+      - DB_HOST=mongodb
+      - DB_PORT=27017
+      - DB_NAME=minecraft
+    ports:
+      - 80:8080
+    depends_on:
+      - mongodb
+  mongodb:
+    restart: always
+    image: mongo
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=example
+      - MONGO_INITDB_DATABASE=minecraft
+    volumes:
+      - mongodb_data:/data/db
+
+volumes:
+  mongodb_data:

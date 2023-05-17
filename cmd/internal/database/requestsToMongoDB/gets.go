@@ -21,12 +21,13 @@ func GetLastID() {
 	var result models.Mod
 	err = collection.FindOne(context.Background(), bson.M{}, findOptions).Decode(&result)
 	if err != nil {
-		log.Printf("Cannot find lastID from dataBase")
+		log.Printf("Cannot find lastID from dataBase, LastID = 0")
 		config.LastID = 0
 		return
 	}
 
 	// извлекаем значение поля _id
 	lastId := result.ID
+	log.Printf("getLastID:", lastId)
 	config.LastID = lastId
 }

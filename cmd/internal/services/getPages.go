@@ -39,7 +39,7 @@ func GetPage(page string) []models.Mod {
 		//fmt.Printf("Номер :%d\nНазвание: %s\nВерсия: %s\nLink: %s\nОписание:%s\nImg: %s\nDownload:%s\n\n\n", i, mode.Title,
 		//	mode.Version, mode.Link, mode.Description, mode.ImgLink, mode.DownloadLink)
 	})
-
+	log.Printf("Моды скачаны: %v", modeList)
 	return modeList
 }
 func GetAllPages() []models.Mod {
@@ -70,6 +70,7 @@ func GetPages(pages string) []models.Mod {
 
 	var modeList []models.Mod
 	for _, page := range arrPages {
+		log.Printf("page %s скачан", page)
 		modeList = append(modeList, GetPage(page)...)
 	}
 

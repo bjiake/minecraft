@@ -1,16 +1,11 @@
-FROM golang:1.20.3-alpine
+FROM golang:1.20.4-alpine3.18 as builder
 
-WORKDIR /app
+RUN go version
+ENV GOPATH=/
 
-COPY go.mod .
-COPY go.sum .
+COPY ./ ./
 
 RUN go mod download
+RUN go build -o backend ./cmd/app/main.go
 
-COPY . .
-
-RUN go build -o main.app cmd/app/main.go
-
-EXPOSE 8080
-
-ENTRYPOINT [".cmd/app/main.app"]
+CMD ["./backend"]
