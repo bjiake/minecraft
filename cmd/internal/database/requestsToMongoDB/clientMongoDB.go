@@ -12,6 +12,7 @@ var (
 	once   sync.Once
 	client *mongo.Client
 	err    error
+	auth   options.Credential
 )
 
 const (
@@ -20,9 +21,17 @@ const (
 	mongoURI       = "mongodb://mongodb:27017"
 )
 
+//mongodb://<username>:<password>@<host>:<port>
+
 func getClient() (*mongo.Client, error) {
 	once.Do(func() {
-		client, err = mongo.NewClient(options.Client().ApplyURI(mongoURI))
+		credential := options.Credential{
+			AuthMechanism: "SCRAM-SHA-1",
+			Username:      "root",
+			Password:      "example",
+		}
+		clientOpts := options.Client().ApplyURI(mongoURI).SetAuth(credential)
+		client, err = mongo.NewClient(clientOpts)
 		if err != nil {
 			log.Fatal(err)
 		}
