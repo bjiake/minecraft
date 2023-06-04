@@ -17,18 +17,12 @@ var (
 const (
 	dbName         = "minecraft"
 	collectionName = "mods"
-	mongoURI       = "mongodb://mongodb:27017"
+	mongoURI       = "mongodb://root:root@localhost:27017"
 )
 
 func getClient() (*mongo.Client, error) {
 	once.Do(func() {
-		credential := options.Credential{
-			AuthMechanism: "SCRAM-SHA-1",
-			AuthSource:    dbName,
-			Username:      "root",
-		}
-		clientOpts := options.Client().ApplyURI(mongoURI).SetAuth(credential)
-		client, err = mongo.NewClient(clientOpts)
+		client, err = mongo.NewClient(options.Client().ApplyURI(mongoURI))
 		if err != nil {
 			log.Fatal(err)
 		}
