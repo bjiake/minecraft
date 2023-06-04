@@ -24,6 +24,7 @@ func getClient() (*mongo.Client, error) {
 	once.Do(func() {
 		credential := options.Credential{
 			AuthMechanism: "SCRAM-SHA-1",
+			AuthSource:    dbName,
 			Username:      "root",
 		}
 		clientOpts := options.Client().ApplyURI(mongoURI).SetAuth(credential)
