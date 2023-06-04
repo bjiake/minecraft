@@ -17,7 +17,7 @@ var (
 const (
 	dbName         = "minecraft"
 	collectionName = "mods"
-	mongoURI       = "mongodb://10.129.0.33:27017"
+	mongoURI       = "mongodb://localhost:27017"
 )
 
 func getClient() (*mongo.Client, error) {
