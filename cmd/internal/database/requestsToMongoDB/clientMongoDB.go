@@ -25,7 +25,6 @@ func getClient() (*mongo.Client, error) {
 		credential := options.Credential{
 			AuthMechanism: "SCRAM-SHA-1",
 			Username:      "root",
-			Password:      "example",
 		}
 		clientOpts := options.Client().ApplyURI(mongoURI).SetAuth(credential)
 		client, err = mongo.NewClient(clientOpts)
