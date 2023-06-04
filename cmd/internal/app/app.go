@@ -5,14 +5,15 @@ import (
 	"log"
 	"minecraft/cmd/internal/database/requestsToMongoDB"
 	"minecraft/cmd/internal/models"
+	"minecraft/cmd/internal/services"
 	"minecraft/cmd/internal/transport"
 )
 
 func Start() {
 	requestsToMongoDB.GetLastID()
-	//modeList := services.GetPages("1,6,7,8,9")
+	modeList := services.GetPages("1,6,7,8,9")
 	//convertModListJson(modeList)
-	//requestsToMongoDB.InsertMany(modeList)
+	requestsToMongoDB.InsertMany(modeList)
 	transport.Transport()
 	requestsToMongoDB.CloseConnection()
 }
@@ -22,5 +23,6 @@ func convertModListJson(modeList []models.Mod) {
 	if err != nil {
 		log.Fatal(err)
 	}
+
 	//log.Println(string(result))
 }
