@@ -22,7 +22,14 @@ const (
 
 func getClient() (*mongo.Client, error) {
 	once.Do(func() {
-		client, err = mongo.NewClient(options.Client().ApplyURI(mongoURI))
+		credential := options.Credential{
+			AuthMechanism: "SCRAM-SHA-1",
+			Username:      "admin",
+			Password:      "admin",
+		}
+		clientOpts := options.Client().ApplyURI(mongoURI).
+			SetAuth(credential)
+		client, err = mongo.Connect(context.TODO(), clientOpts)
 		if err != nil {
 			log.Fatal(err)
 		}
